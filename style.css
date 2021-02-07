@@ -1,0 +1,27 @@
+* {
+	margin: 0 5px;
+}
+.logo {
+	width: 100px;
+}
+.search-section {
+	text-align: center;
+	margin-bottom: 10px;
+}
+.foods {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	grid-gap: 10px;
+}
+.image {
+	width: 100%;
+	border-radius: 10px;
+}
+.food-name {
+	text-align: center;
+	font-weight: 500;
+}
+
+#ingredients {
+	display: none;
+}
