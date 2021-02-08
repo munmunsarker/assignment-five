@@ -1,41 +1,66 @@
-document.getElementById('search').addEventListener('click', function () {
-	const names = document.getElementById('foodSearch');
-	foodSearch = names.value;
-	fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${foodSearch}`)
+// get foods from search input
+const foodInput = () => {
+	const foodSearch = document.getElementById("searchFood").value;
+	if (foodSearch === "") {
+	  document.getElementById("food-ingredient").style.display = "none";
+	  alert("Search something");
+	} else {
+	  fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${foodSearch}`)
 		.then(response => response.json())
-		.then(data => showFood(data.meals));
-	document.getElementById('foodSearch').value = '';
-});
-const showFood = foods => {
+		.then(data => showFood(data.meals))
+		.catch(error => console.log(error));
+	  document.getElementById("searchFood").value = "";
+	}
+  };
+  
+  // this function for show foods after click search
+  const showFood = foods => {
+	const container = document.getElementById("food");
+	container.innerHTML = "";
+	// previous ingredients hide if click search button
+	const ingredient = document.getElementById("ingredientDiv");
+	ingredient.innerHTML = "";
 	foods.forEach(elements => {
-		const container = document.getElementById('food');
-		const foodContainer = document.createElement('div');
-		// const foodName = document.createElement('div');
-		foodContainer.innerHTML = `
-			<div onclick="${'showIngredients()'}">
-				<img id="images" class="image" src="${elements.strMealThumb}" alt="Food Image">
-				<p id="food-name" class="food-name">${elements.strMeal}</p>
-			</div>
-			<div id="ingredients">
-				<p>Ingredients</p>
-				<ul >
-					<li>${elements.strIngredient1}</li>
-					<li>${elements.strIngredient2}</li>
-					<li>${elements.strIngredient3}</li>
-					<li>${elements.strIngredient4}</li>
-					<li>${elements.strIngredient5}</li>
-					<li>${elements.strIngredient6}</li>
-					<li>${elements.strIngredient7}</li>
-					<li>${elements.strIngredient8}</li>
-					<li>${elements.strIngredient9}</li>
-					<li>${elements.strIngredient10}</li>
-				</ul>
-			</div>
-		`;
-		// foodContainer.appendChild(foodName);
-		container.appendChild(foodContainer);
+	  const foodContainer = document.createElement("div");
+	  const foodContainerDiv = `
+			  <div onclick = "showIngredients('${elements.strMeal}')">
+				  <img  class="image" src="${elements.strMealThumb}" alt="Food Image">
+				  <p class="food-name">${elements.strMeal}</p>
+			  </div>`;
+	  foodContainer.innerHTML = foodContainerDiv;
+	  container.appendChild(foodContainer);
 	});
-};
-function showIngredients() {
-	document.getElementById('ingredients').style.display = 'block';
-}
+  };
+  
+  // show ingredients after click specific food item
+  const showIngredients = foodName => {
+	fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${foodName}`)
+	  .then(response => response.json())
+	  .then(data => mealIngredientDetails(data.meals[0]));
+  };
+  const mealIngredientDetails = meals => {
+	const ingredientDiv = document.getElementById("ingredientDiv");
+	ingredientDiv.innerHTML = `
+		  <div class="ingredient-show">
+			  <div class="ingredient-div">
+				  <img class="ingredientImage" src = "${meals.strMealThumb}">	
+		  <p class="food-name">${meals.strMeal}</p>
+			  </div>
+			  <div>
+				  <ol >
+			<p class="food-name">Ingredients</p>
+					  <li>${meals.strIngredient1}</li>
+					  <li>${meals.strIngredient2}</li>
+					  <li>${meals.strIngredient3}</li>
+					  <li>${meals.strIngredient4}</li>
+					  <li>${meals.strIngredient5}</li>
+					  <li>${meals.strIngredient6}</li>
+					  <li>${meals.strIngredient7}</li>
+					  <li>${meals.strIngredient8}</li>
+					  <li>${meals.strIngredient9}</li>
+					  <li>${meals.strIngredient10}</li>
+				  </ol>	
+			  </div>
+		  </div>
+	  `;
+  };

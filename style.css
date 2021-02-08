@@ -1,27 +1,60 @@
 * {
 	margin: 0 5px;
-}
-.logo {
+  }
+  span {
+	color: green;
+	font-size: 30px;
+	font-weight: bold;
+  }
+  .logo {
 	width: 100px;
-}
-.search-section {
+  }
+  .search-section {
 	text-align: center;
 	margin-bottom: 10px;
-}
-.foods {
+  }
+  .foods {
 	display: grid;
-	grid-template-columns: repeat(5, 1fr);
+	grid-template-columns: repeat(6, 1fr);
 	grid-gap: 10px;
-}
-.image {
-	width: 100%;
+  }
+  .image {
+	width: 90%;
 	border-radius: 10px;
-}
-.food-name {
+  }
+  .image:hover {
+	border: 6px solid #f08903;
+  }
+  .food-name {
+	font-size: large;
 	text-align: center;
-	font-weight: 500;
-}
-
-#ingredients {
+	font-weight: bold;
+	color: #f08903;
+  }
+  
+  #ingredients {
 	display: none;
-}
+  }
+  .ingredientImage {
+	width: 200px;
+	border-radius: 10px;
+	margin-top: 30%;
+  }
+  .ingredient-show {
+	margin: 2% 30% 2% 30%;
+	display: flex;
+	justify-content: space-around;
+	background-color: gainsboro;
+	border-radius: 10px;
+  }
+  ol {
+	list-style: none;
+  }
+  ol li::before {
+	content: "\2022";
+	color: red;
+	font-weight: bold;
+	display: inline-block;
+	width: 1em;
+	margin-left: -1em;
+  }
